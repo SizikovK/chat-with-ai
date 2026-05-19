@@ -1,6 +1,6 @@
 import { Link, Outlet } from 'react-router-dom'
 
-function Root() {
+export default function Root() {
   return (
     <div className="app-shell">
       <header className="topbar">
@@ -17,5 +17,3 @@ function Root() {
     </div>
   )
 }
-
-export default Root

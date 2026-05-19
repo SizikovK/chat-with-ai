@@ -1,7 +1,7 @@
 import AllChats from '../components/AllChats'
 import ChatWindow from '../components/ChatWindow'
 
-function Chat() {
+export default function Chat() {
   return (
     <div className="chat-layout">
       <aside className="chat-sidebar">
@@ -13,5 +13,3 @@ function Chat() {
     </div>
   )
 }
-
-export default Chat

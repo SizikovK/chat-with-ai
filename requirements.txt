@@ -17,3 +17,4 @@ langchain_openai
 langgraph
 pymongo
 chromadb
+email-validator

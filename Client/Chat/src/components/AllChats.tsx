@@ -38,8 +38,8 @@ function AllChats() {
   return (
     <div>
       <div className="sidebar-head">
-        <h3>Chats</h3>
-        <button type="button">New</button>
+        <h3>Чаты</h3>
+        <button type="button">Новый чат</button>
       </div>
 
       {loading ? <p>Loading chats...</p> : null}

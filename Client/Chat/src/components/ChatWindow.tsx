@@ -1,7 +1,4 @@
-import { useParams } from 'react-router-dom'
-
 function ChatWindow() {
-
   return (
     <div>
       <div className="messages">

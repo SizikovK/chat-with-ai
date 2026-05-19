@@ -7,10 +7,7 @@ import Root from './routers/root'
 import ErrorPage from './error-page'
 import Chat from './routers/chat'
 import Login from './routers/login'
-
-function Home() {
-  return <p>Welcome. Open Chats to start.</p>
-}
+import Home from './routers/home'
 
 const router = createBrowserRouter([
   {
