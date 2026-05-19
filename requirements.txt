@@ -11,4 +11,9 @@ torch==2.11.0
 transformers==5.6.2
 uvicorn==0.46.0
 pydantic==2.13.3
-python-dotenv==1.2.2
+python-dotenv
+openai
+langchain_openai
+langgraph
+pymongo
+chromadb
