@@ -2,41 +2,6 @@ from langchain_core.tools import tool
 from requests import get
 
 @tool
-def multiply(a: int, b: int) -> int:
-    """Multiply `a` and `b`.
-
-    Args:
-        a: First int
-        b: Second int
-    """
-    return a * b
-
-
-@tool
-def add(a: int, b: int) -> int:
-    """Adds `a` and `b`.
-
-    Args:
-        a: First int
-        b: Second int
-    """
-    return a + b
-
-
-@tool
-def divide(a: int, b: int) -> float:
-    """Divide `a` and `b`.
-
-    Args:
-        a: First int
-        b: Second int
-    """
-    return a / b
-
-
-
-
-@tool
 def parce_cryptocurrencies(cryptocurrency: str, count: int) -> str:
     '''
     Получает информацию о криптовалютах с помощью CoinMarketCap API.

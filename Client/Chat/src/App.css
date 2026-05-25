@@ -1,0 +1,461 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: rgb(246, 247, 251);
+}
+
+.app-shell {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.page {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.chat-layout {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 12px;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    padding: 12px 16px 16px;
+}
+
+.chat-sidebar {
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(217, 222, 234);
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.all-chats {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+.chat-main {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 0;
+}
+
+.sidebar-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-list {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0 0;
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-right: 4px;
+    scrollbar-gutter: stable;
+}
+
+.chat-list-item {
+    margin-bottom: 8px;
+}
+
+.chat-item-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgb(220, 233, 255);
+    border: 1px solid rgb(226, 232, 244);
+    border-radius: 10px;
+    padding: 4px;
+}
+
+.chat-item-card a {
+    flex: 1;
+    min-width: 0;
+    text-decoration: none;
+    color: rgb(38, 53, 77);
+    padding: 7px 8px;
+    border-radius: 8px;
+}
+
+.chat-item-card a:hover {
+    background: rgb(200, 220, 255);
+}
+
+.chat-item-card button {
+    border: none;
+    background: transparent;
+    color: #b44459;
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.chat-item-card button:hover {
+    background: rgb(255, 211, 220);
+}
+
+.messages {
+    min-height: 0;
+    flex: 1;
+    overflow: auto;
+    padding: 6px 0;
+    margin-bottom: 14px;
+}
+
+.message-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.message-row--user {
+    justify-content: flex-end;
+}
+
+.message-row--assistant {
+    justify-content: flex-start;
+}
+
+.message-bubble {
+    max-width: min(75%, 760px);
+    padding: 10px 12px;
+    border-radius: 14px;
+    border: none;
+    background: rgb(238, 245, 255);
+}
+
+.message-row--user .message-bubble {
+    background: rgb(220, 233, 255);
+}
+
+.message-bubble p {
+    margin: 0;
+}
+
+.message-copy-button {
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    color: rgb(21, 24, 29);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.message-copy-button:hover {
+    background: rgb(200, 220, 255);
+}
+
+.messages--hidden {
+    display: none;
+}
+
+.chat-window {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    width: min(920px, 100%);
+    margin: 0 auto;
+    padding: 20px 14px 14px;
+}
+
+.chat-window--active .input-row {
+    margin-top: auto;
+}
+
+.chat-window--new {
+    justify-content: center;
+}
+
+.chat-start-title {
+    width: min(700px, 100%);
+    margin: 0 auto 20px;
+    text-align: center;
+}
+
+.chat-window--new .input-row {
+    width: min(700px, 100%);
+    margin: 0 auto;
+}
+
+.input-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 14px;
+    background: rgb(255, 255, 255);
+}
+
+.input-row input,
+.input-row textarea {
+    padding: 8px;
+    border: none;
+    outline: none;
+    background: transparent;
+    resize: none;
+    font: inherit;
+}
+
+.input-row button {
+    width: 40px;
+    aspect-ratio: 1 / 1;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background-color: rgb(220, 233, 255);
+    color: black;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s ease;
+}
+
+.input-row button:hover {
+    background-color: rgb(200, 220, 255);
+}
+
+.home-page {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    place-items: center;
+    padding: 28px 12px;
+    background:
+        radial-gradient(circle at 15% 20%, rgb(229, 239, 255) 0%, transparent 45%),
+        radial-gradient(circle at 85% 70%, rgb(255, 233, 241) 0%, transparent 45%);
+}
+
+.home-hero {
+    width: min(860px, 100%);
+    text-align: center;
+}
+
+.home-hero h1 {
+    margin: 0 0 14px;
+    font-size: clamp(38px, 8vw, 72px);
+    line-height: 1.05;
+    color: rgb(21, 24, 29);
+    letter-spacing: 0.5px;
+}
+
+.home-hero p {
+    margin: 0 auto 22px;
+    max-width: 620px;
+    color: rgb(74, 85, 104);
+    font-size: clamp(16px, 2.2vw, 20px);
+}
+
+.home-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.home-btn {
+    text-decoration: none;
+    padding: 10px 14px;
+    border: 1px solid rgb(217, 222, 234);
+    border-color: rgb(21, 24, 29);
+    border-radius: 10px;
+    font-weight: 600;
+    font-family: "Trebuchet MS", "Segoe UI", Tahoma, sans-serif;
+    font-size: 15px;
+    transition: background-color 0.2s ease;
+    background: rgb(21, 24, 29);
+    color: rgb(255, 255, 255);
+}
+
+.home-btn:hover {
+    background: rgb(255, 255, 255);
+    color: rgb(21, 24, 29);
+}
+
+.auth-card {
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(217, 222, 234);
+    border-radius: 10px;
+    padding: 16px;
+    max-width: 420px;
+    margin: 0 auto;
+    margin-top: 15px;
+}
+
+.auth-card h2 {
+    margin-top: 0;
+}
+
+.profile-card {
+    width: 560px;
+}
+
+.auth-form {
+    display: grid;
+    gap: 10px;
+}
+
+.auth-form label {
+    display: grid;
+    gap: 4px;
+    font-size: 14px;
+}
+
+.auth-form input {
+    padding: 8px 10px;
+    border: 1px solid rgb(217, 222, 234);
+    border-radius: 8px;
+}
+
+.auth-form button {
+    padding: 9px 12px;
+    border: none;
+    border-radius: 8px;
+    background: rgb(21, 24, 29);
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    font-family: "Trebuchet MS", "Segoe UI", Tahoma, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.auth-form button:hover {
+    background: rgb(255, 255, 255);
+    color: rgb(21, 24, 29);
+}
+
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    border-bottom: 1px solid rgb(229, 233, 243);
+    background: rgb(21, 24, 29);
+    gap: 10px;
+}
+
+.brand-link {
+    text-decoration: none;
+    font-size: 26px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.4px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-action-link {
+    text-decoration: none;
+    padding: 7px 10px;
+    border: none;
+    border-radius: 10px;
+    border: 1px solid rgb(217, 222, 234);
+    background: rgb(21, 24, 29);
+    border-color: rgb(21, 24, 29);
+    color: #ffffff;
+    font-family: "Trebuchet MS", "Segoe UI", Tahoma, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.header-action-link:hover {
+    background: rgb(255, 255, 255);
+    color: rgb(21, 24, 29);
+}
+
+.user-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 10px;
+    border: 1px solid rgb(21, 24, 29);
+    border-radius: 10px;
+    background: rgb(248, 251, 255);
+}
+
+
+.user-name {
+    font-family: "Trebuchet MS", "Segoe UI", Tahoma, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    color: rgb(21, 24, 29);
+}
+
+.logout-button {
+    border: none;
+    background: rgb(220, 233, 255);
+    color: rgb(21, 24, 29);
+    border-radius: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-family: "Trebuchet MS", "Segoe UI", Tahoma, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.logout-button:hover {
+    background: rgb(200, 220, 255);
+}
+
+.sidebar-head button {
+    border: none;
+    background: rgb(220, 233, 255);
+    color: rgb(21, 24, 29);
+    border-radius: 10px;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.sidebar-head button:hover {
+    background: rgb(200, 220, 255);
+}

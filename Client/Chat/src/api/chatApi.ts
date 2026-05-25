@@ -1,17 +1,67 @@
-import { HTTPClient } from './HTTPClient'
-import type { AllChatAPIResponse, ChatHistoryResponse } from './types'
+import { HTTPClient } from "./HTTPClient";
+import { get_stored_user_id } from "../auth/localAuth";
+import type { AllChatAPIResponse, ChatHistoryResponse, MessageType, ModelResponseType } from "./types";
 
-const API_BASE_URL = import.meta.env.API_BASE_URL ?? 'http://127.0.0.1:8000'
-const DEMO_USER_ID = '6a088508e715423a43e69f4c'
-const DEMO_CHAT_ID = 'f9eaa20d735b4b469141c1f90e01237d'
-
+const API_BASE_URL = "http://127.0.0.1:8000"
 const httpClient = new HTTPClient(API_BASE_URL)
 
+const get_user_id = (): string => {
+    const user_id = get_stored_user_id();
+    if (!user_id) {
+        throw new Error("Пользователь не авторизован");
+    }
+    return user_id;
+};
+
+const user_header = (user_id: string) => ({ "User-Id": user_id });
+
 export const chatApi = {
-  getAllChats(user_id: string = DEMO_USER_ID): Promise<AllChatAPIResponse[]> {
-    return httpClient.request<undefined, AllChatAPIResponse[]>('GET', `/users/${user_id}/chats`)
-  },
-  getChatHistory(user_id: string = DEMO_USER_ID, chat_id: string = DEMO_CHAT_ID): Promise<ChatHistoryResponse[]> {
-    return httpClient.request<undefined, ChatHistoryResponse[]>('GET', `/users/${user_id}/chats/${chat_id}/messages`)
-  },
-}
+    getAllChats(): Promise<AllChatAPIResponse[]> {
+        const user_id = get_user_id();
+        return httpClient.request<undefined, AllChatAPIResponse[]>(
+            "GET",
+            `/users/${user_id}/chats`
+        );
+    },
+    createChat(): Promise<string> {
+        const user_id = get_user_id();
+        return httpClient.request<undefined, string>(
+            "POST",
+            `/users/${user_id}/chats`
+        );
+    },
+    deleteChat(chat_id: string): Promise<{ deleted: boolean }> {
+        const user_id = get_user_id();
+        return httpClient.request<undefined, { deleted: boolean }>(
+            "DELETE",
+            `/chats/${chat_id}`,
+            user_header(user_id)
+        );
+    },
+    getChat(chat_id: string): Promise<AllChatAPIResponse> {
+        const user_id = get_user_id();
+        return httpClient.request<undefined, AllChatAPIResponse>(
+            "GET",
+            `/chats/${chat_id}`,
+            user_header(user_id)
+        );
+    },
+    getChatHistory(chat_id: string): Promise<ChatHistoryResponse[]> {
+        const user_id = get_user_id();
+        return httpClient.request<undefined, ChatHistoryResponse[]>(
+            "GET",
+            `/chats/${chat_id}/messages`,
+            user_header(user_id)
+        );
+    },
+    sendMessage(chat_id: string, message: string): Promise<ModelResponseType> {
+        const user_id = get_user_id();
+        const body: MessageType = { message };
+        return httpClient.request<MessageType, ModelResponseType>(
+            "POST",
+            `/chats/${chat_id}/messages`,
+            user_header(user_id),
+            body
+        );
+    }
+};

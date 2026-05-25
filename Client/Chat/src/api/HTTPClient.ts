@@ -1,34 +1,39 @@
 export class HTTPClient {
-    private baseUrl: string;
+    private base_url: string;
 
-    constructor(baseUrl: string) {
-        this.baseUrl = baseUrl;
+    constructor(base_url: string) {
+        this.base_url = base_url;
     }
 
-    async request<TBody, TResponse>(method: string, path: string, body?: TBody): Promise<TResponse> {
-        const response = await fetch(`${this.baseUrl}${path}`, {
-            method: method,
+    async request<BodyType, ResponseType>(method: string, path: string, headers?: Record<string, string>, body?: BodyType): Promise<ResponseType> {
+        const response = await fetch(`${this.base_url}${path}`, {
+            method,
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
+                ...(headers ?? {})
             },
             body: body === undefined ? undefined : JSON.stringify(body)
-        })
-        if(!response.ok) {
-            throw new Error(`HTTP POST Error: ${await response.text()}! Status: ${response.status}`)
-        }
-        return this.parseResponse<TResponse>(response)
-    }
+        });
 
-    private async parseResponse<T>(response: Response): Promise<T> {
-        if (response.status === 204) {
-            return null as T
+        if (!response.ok) {
+            const error_text = await response.text();
+            let error_message: string;
+
+            try {
+                const data = JSON.parse(error_text) as { detail?: string; message?: string };
+                error_message = data.detail || data.message || error_text;
+            } catch {
+                error_message = error_text;
+            }
+
+            throw new Error(`${response.status}: ${error_message}`);
         }
 
-        const text = await response.text()
+        const text = await response.text();
         if (!text) {
-            return null as T
+            return null as ResponseType;
         }
 
-        return JSON.parse(text) as T
+        return JSON.parse(text) as ResponseType
     }
 }

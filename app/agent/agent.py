@@ -6,7 +6,7 @@ from langgraph.graph.state import CompiledStateGraph
 from .create_llm import create_llm
 from .tools import *
 
-tools = [multiply, add, divide, parce_cryptocurrencies, parce_weather]
+tools = [parce_cryptocurrencies, parce_weather]
 tools_by_name = {tool.name: tool for tool in tools}
 agent: Any | None = None
 

@@ -48,3 +48,10 @@ def delete_chat(chat_id: str, user_id: str) -> bool:
     })
 
     return chat_result.deleted_count > 0
+
+
+def update_chat_title(chat_id: str, user_id: str, title: str) -> None:
+    chats_collection.update_one(
+        {"_id": chat_id, "user_id": user_id},
+        {"$set": {"title": title, "updated_at": datetime.now()}},
+    )
