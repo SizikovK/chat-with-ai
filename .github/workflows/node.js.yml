@@ -26,11 +26,11 @@ jobs:
         cache: npm
         cache-dependency-path: Client/Chat/package-lock.json
 
-    - name: Install deps
+    - name: Install
       working-directory: Client/Chat
       run: npm ci
 
-    - name: Run tests
+    - name: Test
       working-directory: Client/Chat
       run: npm test
 
