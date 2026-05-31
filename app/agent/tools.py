@@ -1,6 +1,11 @@
 from langchain_core.tools import tool
 from requests import get
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
 @tool
 def parce_cryptocurrencies(cryptocurrency: str, count: int) -> str:
     '''
@@ -13,7 +18,7 @@ def parce_cryptocurrencies(cryptocurrency: str, count: int) -> str:
         str: Информация о криптовалютах или сообщение об ошибке.
     '''
 
-    API_KEY = "9f6da3a3c905461e9d0eb20049bc2f6e"
+    API_KEY = os.getenv("COINMARKETCAP_API_KEY", "")
     count = str(count)
     convert = "USD"
     params = f"?start=1&limit={count}&convert={convert}"
@@ -59,7 +64,7 @@ def parce_weather(city: str) -> str:
         str: Информация о погоде или сообщение об ошибке.
     '''
 
-    API_KEY = "4af81f1d5c223163c511122479330934"
+    API_KEY = os.getenv("OPENWEATHERMAP_API_KEY", "")
     url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
     
     try:
